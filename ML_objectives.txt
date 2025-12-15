@@ -1,0 +1,76 @@
+========================================
+KEY VARIABLES FOR REAL ESTATE ML MODEL
+========================================
+
+----------------------------------------
+LOCATION FEATURES
+----------------------------------------
+
+- latitude
+- longitude
+- commune
+- neighborhood
+- distance_to_city_center
+- distance_to_public_transport
+- number_of_shops_nearby
+- number_of_schools_nearby
+- green_areas_nearby
+
+----------------------------------------
+SOCIO-ECONOMIC FEATURES (INSEE)
+----------------------------------------
+
+- median_income
+- population_density
+- unemployment_rate
+- socio_professional_categories
+
+----------------------------------------
+TRANSACTION FEATURES (DVF)
+----------------------------------------
+
+- transaction_date
+- sale_price
+- price_per_square_meter
+- number_of_lots
+
+----------------------------------------
+BUILDING CHARACTERISTICS
+----------------------------------------
+
+- surface_reelle_bati
+- property_type
+- number_of_rooms
+- number_of_bedrooms
+- floor_level
+- elevator
+- year_of_construction
+- parking_or_garage
+- balcony_or_terrace
+
+----------------------------------------
+TECHNICAL / IDENTIFIER FEATURES
+(NOT USED FOR ML)
+----------------------------------------
+
+- internal_id
+- listing_url
+- source
+- scraping_date
+
+========================================
+
+----------------------------------------
+TOP 10 MOST IMPORTANT FEATURES
+----------------------------------------
+
+1. surface_reelle_bati
+2. latitude
+3. longitude
+4. commune_or_neighborhood
+5. property_type
+6. number_of_rooms
+7. floor_level
+8. elevator
+9. median_income
+10. distance_to_public_transport

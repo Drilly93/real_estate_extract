@@ -1,0 +1,86 @@
+========================================
+DATABASE STRUCTURE — REAL ESTATE
+========================================
+
+TABLE 1 : dvf_transactions
+(1 row = 1 official DVF transaction)
+------------------------------------------------
+id_mutation
+transaction_date
+sale_price
+built_surface_area
+property_type
+number_of_lots
+address
+postal_code
+commune_code
+latitude
+longitude
+price_per_sqm
+source   (e.g. "DVF")
+
+------------------------------------------------
+
+TABLE 2 : listings
+(1 row = 1 listing — all websites combined)
+------------------------------------------------
+listing_id
+website         (seloger / leboncoin / pap / bienici)
+url
+scrape_date
+listed_price
+surface
+number_of_rooms
+number_of_bedrooms
+floor_level
+property_type
+city
+postal_code
+latitude
+longitude
+source          (e.g. "SCRAPING")
+
+------------------------------------------------
+
+TABLE 3 : insee_commune
+(1 row = 1 commune / neighborhood)
+------------------------------------------------
+commune_code
+commune_name
+median_income
+population
+density
+unemployment_rate
+source          (e.g. "INSEE")
+
+------------------------------------------------
+
+TABLE 4 : osm_features
+(geographical features around the property)
+------------------------------------------------
+reference_id    (id_mutation or listing_id)
+latitude
+longitude
+number_of_schools_500m
+number_of_transports_500m
+number_of_shops_300m
+distance_to_metro
+source          (e.g. "OSM")
+
+------------------------------------------------
+
+TABLE 5 : source_metadata
+(information about data sources)
+------------------------------------------------
+source_name     (DVF / INSEE / OSM / SeLoger / LBC / PAP)
+acquisition_type (OPEN_DATA / API / SCRAPING)
+url
+acquisition_date
+comment
+
+========================================
+KEY RULES
+- One table per entity type
+- The "source" column ensures data traceability
+- The source_metadata table documents the data pipeline
+========================================
