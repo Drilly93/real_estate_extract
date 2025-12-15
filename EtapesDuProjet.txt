@@ -1,0 +1,81 @@
+OBJECTIF
+Collecter, nettoyer, stocker et exploiter des données immobilières
+provenant de sources hétérogènes afin de construire un dataset
+permettant de prédire le prix (ou le prix au m²) d’un bien immobilier.
+
+----------------------------------------
+ÉTAPE 1 — DÉFINITION DU PÉRIMÈTRE
+----------------------------------------
+- Définir la zone géographique (France, région, ville).
+- Choisir le type de biens (appartements, maisons).
+- Définir la variable cible (prix total ou prix au m²).
+- Définir le niveau de granularité (transaction ou annonce).
+
+----------------------------------------
+ÉTAPE 2 — IDENTIFICATION DES SOURCES
+----------------------------------------
+- Données officielles : DVF (prix de vente réels).
+- Données socio-économiques : INSEE (API).
+- Données géographiques : OpenStreetMap (API Overpass).
+- Données d’annonces : scraping (SeLoger, Leboncoin, PAP).
+
+----------------------------------------
+ÉTAPE 3 — COLLECTE DES DONNÉES
+----------------------------------------
+- Télécharger les fichiers DVF (open data).
+- Interroger l’API INSEE pour les indicateurs socio-économiques.
+- Interroger l’API OpenStreetMap pour les points d’intérêt.
+- Scraper les annonces immobilières avec Scrapy.
+
+----------------------------------------
+ÉTAPE 4 — STOCKAGE DES DONNÉES BRUTES
+----------------------------------------
+- Stocker les données sans modification (raw data).
+- CSV pour DVF.
+- JSON pour les APIs.
+- HTML ou JSON pour le scraping.
+- Conserver la traçabilité des sources.
+
+----------------------------------------
+ÉTAPE 5 — NETTOYAGE ET PRÉTRAITEMENT
+----------------------------------------
+- Supprimer les valeurs manquantes critiques.
+- Corriger les types de données (dates, numériques).
+- Calculer le prix au m².
+- Supprimer les valeurs aberrantes (outliers).
+- Normaliser les adresses.
+- Géocoder les biens (latitude / longitude).
+
+----------------------------------------
+ÉTAPE 6 — STOCKAGE STRUCTURÉ (DATABASE)
+----------------------------------------
+- Créer une base de données SQL (PostgreSQL ou SQLite).
+- Créer une table par type d’entité :
+  - dvf_transactions
+  - listings
+  - insee_commune
+  - osm_features
+- Ajouter une table de métadonnées des sources.
+
+----------------------------------------
+ÉTAPE 7 — ENRICHISSEMENT ET JOINTURES
+----------------------------------------
+- Joindre DVF et INSEE via le code commune.
+- Joindre DVF et OSM via latitude / longitude.
+- Enrichir les transactions avec des variables contextuelles.
+- Construire une table finale de features.
+
+----------------------------------------
+ÉTAPE 8 — SÉLECTION DES VARIABLES (FEATURE SELECTION)
+----------------------------------------
+- Identifier les variables les plus pertinentes.
+- Supprimer les variables techniques inutiles.
+- Encoder les variables catégorielles.
+- Préparer les données pour le machine learning.
+
+----------------------------------------
+ÉTAPE 9 — CRÉATION DU DATASET FINAL
+----------------------------------------
+- Vérifier la cohérence des données.
+- Exporter le dataset final (CSV ou Parquet).
+- Rendre le dataset reproductible et documenté.
