@@ -1,12 +1,13 @@
 from pathlib import Path
 import polars as pl
 
+CURRENT_DIR = Path(__file__).resolve().parent
+USER = "willy"
 
-USER = Path.home().name
-
-if USER == "Abdel":
+if USER == "willy":
     
-    BASE_PATH = Path.home() / "Desktop" / "ML_Project"
+
+    BASE_PATH = CURRENT_DIR
     BASE_PATH_DATA = BASE_PATH / "data"
 
 
@@ -48,10 +49,6 @@ if USER == "Abdel":
     PATH_DIR_INSEE = BASE_PATH_DATA / "INSEE_2021"
     PATH_FICHIER_INSEE_DONNEE_COMMUNE = PATH_DIR_INSEE  / "niv_vie_commune_2021.csv"
     PATH_FICHIER_INSEE_DONNEE_DEPARTEMENT = PATH_DIR_INSEE  / "niv_vie_departement.csv"
-   
-    #--------------------------------------------#
-    
-    
     
     #----------------FICHIER DATAFRAME_FINAL----------------#
     PATH_DIR_DF_FINAL = BASE_PATH_DATA / "DataFrameFinal"
@@ -66,72 +63,6 @@ if USER == "Abdel":
 
     PATH_DIR_DF_VF_OSM_ECO_INSEE = PATH_DIR_DF_FINAL / "DataFrame_VF+OMS+Eco+INSEE"
     PATH_FICHIER_DF_VF_OSM_ECO_INSEE = PATH_DIR_DF_VF_OSM_ECO_INSEE / "df_vf_oms_eco_insee.parquet"
-    
-
-    
-
-    
-elif USER == "math":
-    
-    
-    BASE_PATH = Path.home() / "OneDrive" / "Bureau" / "M1" / "S2" / "ML_project" / "projet"
-    BASE_PATH_DATA = BASE_PATH
-
-
-    #----------------FICHIER DATA----------------#
-    # Fichier csv departements francais
-    PATH_FICHIER_DEP_FR = BASE_PATH_DATA
-    
-    # Chemin vers les fichiers csv des Valeurs Foncieres de chaque departements qu'on recoltera sur internet
-    PATH_DIR_VAL_FONCIERE_DEP = BASE_PATH_DATA 
-    
-    
-    # Chemin qui contiendra le fichier NETTOYE de toute les valeurs fonciere de France qui nous interesse pour notre analyse
-    PATH_DIR_VAL_FONCIERE_FRANCE = BASE_PATH_DATA
-    PATH_FICHIER_VAL_FONCIERE_FRANCE = PATH_DIR_VAL_FONCIERE_FRANCE / "ValeursFoncieresFrance.csv"
-    PATH_FICHIER_VAL_FONCIERE_FRANCE_PARQUET = PATH_DIR_VAL_FONCIERE_FRANCE / "ValeursFoncieresFrance.parquet"
-    
-    
-    
-    # Chemin qui contiendra le fichier d'OpenStreetMap (OSM) de la France Entiere (version telecharger le 10/04/2025)
-    # Ce fichier contient toute les donnees cartographiques d'OSM (fichier de type .pbf)
-    PATH_DIR_OSM = BASE_PATH_DATA / "OpenStreetMap"
-    PATH_FICHIER_OSM = PATH_DIR_OSM / "france-latest.osm.pbf"
-    PATH_FICHIER_OSM_LIGHT = PATH_DIR_OSM / "guyane-latest.osm.pbf" # Fichier Test Pas Trop Lourd
-    PATH_FICHIER_OSM_MEDIUM= PATH_DIR_OSM / "ile-de-france-latest.osm.pbf" # Fichier Test Pas Trop Lourd
-    
-    
-    PATH_DIR_OSM_TRIEE = PATH_DIR_OSM / "donnee_triee" #Contiendra que les gares, aeroports, routes etc...
-    
-    
-    #Donnee eco
-    PATH_DIR_ECO = BASE_PATH_DATA / "Economie_global"
-    PATH_FICHIER_ECO = PATH_DIR_ECO / "df_final.csv"
-    
-    
-    #Donnee INSEE 2021
-    #Pas d'infi dispo au dela. On prend donc une photo figee  comme représentation du contexte socio-éco local
-    #On l’argumentera comme une approximation stable dans le temps (ce qui est raisonnable pour ce type de données).
-    PATH_DIR_INSEE = BASE_PATH_DATA / "INSEE_2021"
-    PATH_FICHIER_INSEE_DONNEE_COMMUNE = PATH_DIR_INSEE  / "niv_vie_commune_2021.csv"
-    PATH_FICHIER_INSEE_DONNEE_DEPARTEMENT = PATH_DIR_INSEE  / "niv_vie_departement.csv"
-    #--------------------------------------------#
-
-
-    #----------------FICHIER DATAFRAME_FINAL----------------#
-    PATH_DIR_DF_FINAL = BASE_PATH_DATA / "DataFrameFinal"
-    
-    
-    PATH_DIR_DF_VF = PATH_DIR_DF_FINAL / "DataFrame_VF"
-    PATH_FICHIER_DF_VF = PATH_DIR_DF_VF / "df_vf.parquet"
-    
-    PATH_DIR_DF_VF_OSM = PATH_DIR_DF_FINAL / "DataFrame_VF+OMS"
-    PATH_FICHIER_DF_VF_OSM = PATH_DIR_DF_VF_OSM / "data_vf_oms.parquet"
-    
-
-    PATH_DIR_DF_VF_ECO_INSEE = PATH_DIR_DF_FINAL / "DataFrame_VF+OMS+Eco+INSEE"
-    PATH_FICHIER_DF_VF_ECO_INSEE = PATH_DIR_DF_VF_ECO_INSEE / "df_vf_oms_eco_insee.parquet"
-    
 
 else :
     raise ValueError(

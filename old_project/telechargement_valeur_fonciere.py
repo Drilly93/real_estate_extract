@@ -21,12 +21,11 @@ df_departement = pd.read_csv(PATH_FICHIER_DEP_FR)
 df_departement = df_departement[["code_departement","nom_departement"]]
 
 
-
 def telechargement_valeur_fronciere_departement():
     
     # Boucle sur tous les départements listes dans le fichier df_departement
     for i in range(len(df_departement["code_departement"])):  
-        
+        print(df_departement.iloc[i,0])
         # Cree un dossier par departement
         os.makedirs(PATH_DIR_VAL_FONCIERE_DEP / df_departement.iloc[i,0], exist_ok = True)
         
@@ -133,5 +132,8 @@ def premier_nettoyage_donnee():
 
 
 #ATTENTION NE PLUS TOUCHE, NE PAS RUN nettoyage_donnee(), on obtient des ordres de lignes differents pour deux runs differents
-#telechargement_valeur_fronciere_departement()
-#premier_nettoyage_donnee()
+
+if __name__ == "__main__":
+    telechargement_valeur_fronciere_departement()
+    # premier_nettoyage_donnee()
+    print()

@@ -20,6 +20,8 @@ from config import PATH_FICHIER_DF_VF_OSM
 
 from config import POINT_INTERET_LOURD #Point d'interet dont les fichiers sont trop lourd
 
+
+
 #-----------------------------------------------------------#
 #                  GESTION DONNEE SPATIAL                   #
 #-----------------------------------------------------------#
@@ -338,10 +340,13 @@ def rajout_features_base_entiere(chemin_df_parquet,kdtree_dict, coords_dic):
 
     # 0ultil Multiprocessing avec joblib (accélère le calcul ligne par ligne)
     # IMPORTANT !!!!!! : joblib garde l’ordre des lignes qu'il traite !!!!! donc output aligné avec le DataFrame d’origine !!
-    results = Parallel(n_jobs=-1)(
-        delayed(rajout_features_un_element)(row["latitude"], row["longitude"],row["x_proj"],row["y_proj"], kdtree_dict, coords_dic)
-        for row in tqdm(list_dict_row_df)  # tqdm pour avoir une barre de progression correct sur le terminal
+    results = [
+    rajout_features_un_element(
+        row["latitude"], row["longitude"], row["x_proj"], row["y_proj"],
+        kdtree_dict, coords_dic
     )
+    for row in tqdm(list_dict_row_df)
+]
 
 
     # Résultats = liste de dictionnaires :  on les convertit en DataFrame Polars
@@ -352,19 +357,20 @@ def rajout_features_base_entiere(chemin_df_parquet,kdtree_dict, coords_dic):
     new_df = df.with_columns([df_enrichie[col] for col in df_enrichie.columns])
     new_df.write_parquet(PATH_FICHIER_DF_VF_OSM) 
     
-
-fichier_osm = PATH_FICHIER_OSM  #PATH_FICHIER_OSM_LIGHT  #PATH_FICHIER_OSM_MEDIUM   
-# nettoyage_fichier_open_street_map(str(fichier_osm))
-    
-# Dictionnaire contenant les GeoDataFrame de chaque points d'interets 
-point_interet_dict_bdd = {}
-for i in range(len(POINT_INTERET)):
-    point_interet_dict_bdd[POINT_INTERET[i]] = gpd.read_parquet(POINT_INTERET_FICHIER[POINT_INTERET[i]])
-    
-    #kdtree_dict : Dictionnaire dont la cle seront les elements de POINT_INTERET (nos pois) et la valeur l'arbre associe  au lieu du GeoDataFrame 
-    #coords_dict : Dictionnaire dont la cle seront les elements de POINT_INTERET (nos pois) et une matrice dont chaque ligne est un poi particulier, et les colonnes, les projections en metre 
-    kdtree_dict, coords_dict = construire_kdtrees(point_interet_dict_bdd)    
-    
-# Nouvelle Base de Donnee avec les features geographiques
-rajout_features_base_entiere(PATH_FICHIER_DF_VF,kdtree_dict, coords_dict)
-print("FIN RAJOUT FEATURES")
+if __name__ == "__main__":
+    fichier_osm = PATH_FICHIER_OSM  #PATH_FICHIER_OSM_LIGHT  #PATH_FICHIER_OSM_MEDIUM   
+    # nettoyage_fichier_open_street_map(str(fichier_osm))
+        
+    # Dictionnaire contenant les GeoDataFrame de chaque points d'interets 
+    point_interet_dict_bdd = {}
+    for i in range(len(POINT_INTERET)):
+        
+        point_interet_dict_bdd[POINT_INTERET[i]] = gpd.read_parquet(POINT_INTERET_FICHIER[POINT_INTERET[i]])
+        print("=========== TOUT EST BON ICI ====================")
+        #kdtree_dict : Dictionnaire dont la cle seront les elements de POINT_INTERET (nos pois) et la valeur l'arbre associe  au lieu du GeoDataFrame 
+        #coords_dict : Dictionnaire dont la cle seront les elements de POINT_INTERET (nos pois) et une matrice dont chaque ligne est un poi particulier, et les colonnes, les projections en metre 
+        kdtree_dict, coords_dict = construire_kdtrees(point_interet_dict_bdd)    
+        
+    # Nouvelle Base de Donnee avec les features geographiques
+    rajout_features_base_entiere(PATH_FICHIER_DF_VF,kdtree_dict, coords_dict)
+    print("FIN RAJOUT FEATURES")
