@@ -35,7 +35,7 @@ def telechargement_valeur_fronciere_departement():
         # Telecharge le fichier CSV depuis l'URL publique et le sauvegarde dans le chemin que l'on a defini
         wget.download(URL_VAL_FONCIERE + df_departement.iloc[i,0],chemin_fichier)
      
-def premier_nettoyage_donnee():
+    def premier_nettoyage_donnee():
     
     
     print("NETTOYAGE VALEUR FONCIERE EN COURS")
