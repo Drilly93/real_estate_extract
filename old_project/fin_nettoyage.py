@@ -3,7 +3,7 @@ import os
 CURRENT_FILE_PATH = Path(__file__).parent.resolve()
 os.chdir(CURRENT_FILE_PATH)
 
-from config import PATH_DIR_DF_FINAL,DISTANCE_POINT_INTERET
+from config import PATH_DIR_DF_FINAL,DISTANCE_POINT_INTERET,PATH_FICHIER_DF_VF_OSM_ECO_INSEE
 import polars as pl
 import matplotlib.pyplot as plt
 import numpy as np
@@ -243,69 +243,11 @@ def nettoyer_valeur_fonciere(df, seuil_min=None, seuil_max_quantile=0.999, seuil
 
 
 def nettoyage_final():
-    df = pl.read_parquet(PATH_DIR_DF_FINAL / "df_final.parquet")
+    df = pl.read_parquet(PATH_FICHIER_DF_VF_OSM_ECO_INSEE)
     df = reglage_null(df)
     nettoyer_valeur_fonciere(df,seuil_min = 1000)
     
 
-def separation_data_set_appart_maison():
-    df = pl.read_parquet(PATH_DIR_DF_FINAL / "data_set.parquet")
-    df = df.drop(["type_local__Maison", "type_local__Appartement"])
-    
-    maisons = df.filter(pl.col("type_local") == "Maison")
-    appartements = df.filter(pl.col("type_local") == "Appartement")
-    
-    maisons.write_parquet(PATH_DIR_DF_FINAL / "data_set_maison.parquet")
-    appartements.write_parquet(PATH_DIR_DF_FINAL / "data_set_appartement.parquet")
 
-def improve_features_kmeans():
-    df = pl.read_parquet(PATH_DIR_DF_FINAL / "data_set.parquet")
-
-    # Colonnes à exclure du clustering
-    cols_to_drop = [
-        "valeur_fonciere", "valeur_fonciere_log",
-        "code_commune", "code_departement",
-        "latitude", "longitude", "x_proj", "y_proj",
-        "type_local"
-    ]
-
-    # Sélection des features pour le clustering
-    df_features = df.drop(cols_to_drop)
-    X = df_features.to_numpy()
-
-    # Standardisation
-    scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
-
-    # Clustering KMeans
-    k = 10  # Nombre de clusters arbitrairement fixé à 10
-    kmeans = KMeans(n_clusters=k, random_state=42)
-    clusters = kmeans.fit_predict(X_scaled)
-
-    # Ajout de la colonne cluster au DataFrame d'origine
-    df = df.with_columns(pl.Series(name="cluster_bien", values=clusters))
-
-    # Sauvegarde dans un nouveau fichier parquet
-    df.write_parquet(PATH_DIR_DF_FINAL / "data_set_kmeans.parquet")
-
-
-
-
-
-
-#nettoyage_final()
-
-# df_avec_valeur_aberante = pl.read_parquet(PATH_DIR_DF_FINAL / "df_final.parquet")
-# df_sans_valeur_aberante = pl.read_parquet(PATH_DIR_DF_FINAL / "df_final_propre.parquet")
-
-
-# visualisation_valeur_fonciere(df_avec_valeur_aberante)
-# visualisation_valeur_fonciere_petite(df_avec_valeur_aberante)
-# visualisation_valeur_fonciere_grande(df_avec_valeur_aberante)
-# visualisation_valeur_fonciere(df_sans_valeur_aberante)
-
-#df = pl.read_parquet(PATH_DIR_DF_FINAL / "data_set.parquet")
-# nombre_valeur_null_par_colonne(df)
-
-#improve_features_kmeans()
-#separation_data_set_appart_maison()
+if __name__ == "__main__":
+    nettoyage_final()

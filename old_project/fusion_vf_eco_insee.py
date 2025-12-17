@@ -13,8 +13,8 @@ os.chdir(CURRENT_FILE_PATH)
 #-----------------------------------------------------------#
 #                      IMPORT  CONSTANTE                    #
 #-----------------------------------------------------------#
-from config import PATH_FICHIER_ECO #Fichier ECO
-from config import PATH_FICHIER_INSEE_DONNEE_COMMUNE,PATH_FICHIER_INSEE_DONNEE_DEPARTEMENT # Fichier INSEE
+from config import PATH_FICHIER_ECO, PATH_DIR_ECO#Fichier ECO
+from config import PATH_FICHIER_INSEE_DONNEE_COMMUNE,PATH_FICHIER_INSEE_DONNEE_DEPARTEMENT,PATH_DIR_DF_VF_OSM_ECO_INSEE # Fichier INSEE
 
 from config import PATH_FICHIER_DF_VF_OSM #le fichier df_vf_osm.parquet
 from config import PATH_FICHIER_DF_VF_OSM_ECO_INSEE # fichier de sortie fusion avec donnee eco et insee
@@ -27,6 +27,8 @@ import polars as pl
 
 
 def fusion_eco():
+    os.makedirs(PATH_DIR_ECO, exist_ok=True)
+
     df_eco = pl.read_csv(PATH_FICHIER_ECO, separator=";")
     df_vf = pl.read_parquet(PATH_FICHIER_DF_VF_OSM)
 
@@ -91,9 +93,13 @@ def fusion_insee(df_vf_eco):
 
 
 def fusion_total():
+    os.makedirs(PATH_DIR_DF_VF_OSM_ECO_INSEE, exist_ok=True)
     fusion_insee(fusion_eco()).write_parquet(PATH_FICHIER_DF_VF_OSM_ECO_INSEE)
 
 
-fusion_total()
+if __name__ == "__main__":
+    print("Fusion des données ECO et INSEE avec le DataFrame VF+OSM en cours...")
+    fusion_total()
+    print("==== FIN ---")
 
 

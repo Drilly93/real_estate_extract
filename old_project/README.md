@@ -59,3 +59,12 @@ Runs the Selenium-based address extraction in parallel to speed up data collecti
 **thread_recup_donnee.py** : Exécute l’extraction Selenium par adresses en parallèle (ThreadPool) afin d’accélérer la collecte sur un grand nombre d’adresses.  
 **Output** : mêmes formats de sortie que `donnee_adresse_optimisation.py` (CSV/Parquet/JSON), mais générés plus rapidement pour un ensemble d’adresses.
 
+
+
+## SOURCES & REFERENCES
+
+Valeurs Foncières (DVF) :
+- Data Gouv : "https://dvf-api.data.gouv.fr/dvf/csv/?dep="
+
+OpenStreetMap (OSM) :
+- Open Street Map "https://download.geofabrik.de/europe/france.html"

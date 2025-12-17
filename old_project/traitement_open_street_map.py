@@ -1,4 +1,5 @@
 import os
+from tqdm import tqdm
 from pathlib import Path
 
 #-----------------------------------------------------------#
@@ -359,14 +360,13 @@ def rajout_features_base_entiere(chemin_df_parquet,kdtree_dict, coords_dic):
     
 if __name__ == "__main__":
     fichier_osm = PATH_FICHIER_OSM  #PATH_FICHIER_OSM_LIGHT  #PATH_FICHIER_OSM_MEDIUM   
-    # nettoyage_fichier_open_street_map(str(fichier_osm))
+    # nettoyage_fichier_open_street_map(str(fichier_osm))   # A EXECUTER SUR GOOGLE CLOUD : LINUX et PARALLLELISATION NECESSAIRE ( Traietement long et volumineux )
         
     # Dictionnaire contenant les GeoDataFrame de chaque points d'interets 
     point_interet_dict_bdd = {}
-    for i in range(len(POINT_INTERET)):
+    for i in tqdm(range(len(POINT_INTERET)), desc="Chargement des POI"):
         
         point_interet_dict_bdd[POINT_INTERET[i]] = gpd.read_parquet(POINT_INTERET_FICHIER[POINT_INTERET[i]])
-        print("=========== TOUT EST BON ICI ====================")
         #kdtree_dict : Dictionnaire dont la cle seront les elements de POINT_INTERET (nos pois) et la valeur l'arbre associe  au lieu du GeoDataFrame 
         #coords_dict : Dictionnaire dont la cle seront les elements de POINT_INTERET (nos pois) et une matrice dont chaque ligne est un poi particulier, et les colonnes, les projections en metre 
         kdtree_dict, coords_dict = construire_kdtrees(point_interet_dict_bdd)    
@@ -374,3 +374,4 @@ if __name__ == "__main__":
     # Nouvelle Base de Donnee avec les features geographiques
     rajout_features_base_entiere(PATH_FICHIER_DF_VF,kdtree_dict, coords_dict)
     print("FIN RAJOUT FEATURES")
+
