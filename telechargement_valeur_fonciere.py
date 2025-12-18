@@ -20,9 +20,7 @@ from config import URL_VAL_FONCIERE, TYPE_COLUMN_CSV_SALE, COLUMN_FINAL, TYPE_CO
 
 def telechargement_valeur_fronciere_departement():
     
-
-    
-    
+    os.makedirs(PATH_DIR_VAL_FONCIERE_DEP , exist_ok=True)
     # Boucle sur tous les départements listes dans le fichier df_departement
     for i in range(len(df_departement["code_departement"])):
         # if i<83:
@@ -138,6 +136,6 @@ if __name__ == "__main__":
     df_departement = df_departement[["code_departement","nom_departement"]]
 
     # EXECUTION 
-    #telechargement_valeur_fronciere_departement()
+    telechargement_valeur_fronciere_departement()
     premier_nettoyage_donnee()
     print()
