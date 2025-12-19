@@ -81,9 +81,9 @@ Output : dataset final propre et prêt pour la modélisation (df_final_propre.pa
 
 Le dernier fichier `df_final_propre.parquet` est le dataset final prêt pour le machine learning.
 
-## Module : De Ferla Real Estate Scraper
+## Folder : De FerlaReal 
 
-Ce répertoire contient le module d'extraction de données pour l'agence immobilière **De Ferla**.
+Ce répertoire contient le module d'extraction de données pour l'agence immobilière **DeFerla**.
 
 ### Description du projet
 
@@ -132,3 +132,4 @@ INSEE :
 
 Economie Globale :
 - Banque de France : https://www.banque-france.fr/statistiques/telechargement
+```
