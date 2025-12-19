@@ -125,6 +125,7 @@ pip install scrapy pillow
 Pour lancer l'extraction et générer le fichier de données :
 
 ```bash
+cd .\deferla\immo_project\
 scrapy crawl deferla -O results/deferla.json
 ```
 
