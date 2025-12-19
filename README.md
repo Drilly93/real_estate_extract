@@ -118,6 +118,34 @@ Le projet nécessite **Python 3.x**.
 
 ```bash
 pip install scrapy pillow
+```
+
+## Utilisation
+
+Pour lancer l'extraction et générer le fichier de données :
+
+```bash
+scrapy crawl deferla -O results/deferla.json
+```
+
+## Structure des résultats
+
+En sortie, le script génère :
+
+* `results/deferla.json` : Contient les métadonnées des annonces.
+* `images_data/` : Dossier contenant les images organisées.
+
+**Arborescence de sortie :**
+
+```text
+/images_data
+    ├── VA1980/
+    │   ├── image_0.jpg
+    │   └── image_1.jpg
+    ├── VA2042/
+    │   └── ...
+```
+
 ## SOURCES & REFERENCES
 
 Valeurs Foncières (DVF) :
