@@ -1,2 +1,4 @@
 others/
 venv/
+data/ValeursFoncieresParDepartement/**
+data/departements_france/**
