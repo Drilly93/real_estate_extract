@@ -91,7 +91,7 @@ Ce module a pour objectif de récupérer les annonces immobilières via **Scrapy
 
 ### Méthodologie Technique
 
-#### 1. Acquisition (API Reverse Engineering) : Le Saint Graal
+#### 1. Acquisition (API Reverse Engineering) : Le Saint Graal https://immobilier.altelis.com/deferla
 
 * **Le Problème :** Le site utilisant un rendu dynamique (**JavaScript**), le scraping HTML classique est inefficace (page vide).
 * **La Solution :** Ce script intercepte les flux XHR pour interroger directement l'API JSON du fournisseur (*Altelis*).
