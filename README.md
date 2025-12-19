@@ -22,6 +22,7 @@ Executer sequentiellement les scripts suivants dans l’ordre indiqué pour repr
 
 >>> python fin_nettoyage.py  
 
+
 ## Fichier generes : 
 
 Tous les fichiers generes sont situes dans le dossier data/
@@ -80,7 +81,43 @@ Output : dataset final propre et prêt pour la modélisation (df_final_propre.pa
 
 Le dernier fichier `df_final_propre.parquet` est le dataset final prêt pour le machine learning.
 
+## Module : De Ferla Real Estate Scraper
 
+Ce répertoire contient le module d'extraction de données pour l'agence immobilière **De Ferla**.
+
+### Description du projet
+
+Ce module a pour objectif de récupérer les annonces immobilières via **Scrapy**, en contournant les limitations techniques classiques.
+
+### Méthodologie Technique
+
+#### 1. Acquisition (API Reverse Engineering) : Le Saint Graal
+
+* **Le Problème :** Le site utilisant un rendu dynamique (**JavaScript**), le scraping HTML classique est inefficace (page vide).
+* **La Solution :** Ce script intercepte les flux XHR pour interroger directement l'API JSON du fournisseur (*Altelis*).
+* **Avantage :** Récupération de données brutes, structurées et complètes.
+
+#### 2. Traitement des images (Custom Pipeline)
+
+* **Implémentation :** Utilisation d'une `ImagesPipeline` Scrapy personnalisée.
+* **Performance :** Téléchargement asynchrone des visuels.
+* **Organisation automatique :** Création d'un dossier par annonce (`ID_ANNONCE/`) et renommage séquentiel des fichiers pour une base de données propre.
+
+#### 3. Conformité (RGPD)
+
+* **Filtrage automatique :** Exclusion des données personnelles des agents (emails, téléphones directs) avant l'export des données.
+
+---
+
+### Installation
+
+Le projet nécessite **Python 3.x**.
+
+1.  Activer l'environnement virtuel.
+2.  Installer les dépendances (Scrapy et Pillow pour le traitement d'images) :
+
+```bash
+pip install scrapy pillow
 ## SOURCES & REFERENCES
 
 Valeurs Foncières (DVF) :
